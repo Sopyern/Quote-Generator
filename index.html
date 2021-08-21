@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bako|Qoute Generator </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <header>
+                    <nav class="nav-wrapper">
+                        <div class="container">
+                            <div class="brand-logo"><a href="index.html"><img src="img/logo2.png" alt="logo"></a>
+                                <a href="index.html" class="selected">Home</a>
+                                <a href="about.html">About Me</a>
+                            </div>
+                        </div>  
+                    </nav>
+                </header>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <div class="col-lg-6 mx-auto">
+            <div class="card mt-1">
+                <h4 class="text-center">Quote Generator</h4>
+                <div class="container">
+                    <div class="button">
+                    <button id="get-quote"class="btn btn-dark mt-5 mx-auto">Generate Qoute</button></div>
+                    <div class="qoute"><p><img src="img/Qoute2.png" id="qoute-sign" alt="quote sign"><span id="quote-display"></span></p>
+                    </div><br>
+                    <div id="author-name">Author Name</div>
+                </div>
+                <footer>copyright &copy;2021 Abakos - All right reserved</footer>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        document.getElementById('get-quote').addEventListener('click', getQoute)
+        function getQoute(){
+            let xml = new XMLHttpRequest;
+            xml.open('GET', 'Quote.json', true)
+            xml.onload = function(){
+            if(xml.status === 200){
+            const quote =JSON.parse(this.responseText)
+            let random =quote[Math.floor(Math.random()*10)];
+            let quoteJson = (random.quote);
+            let authorJson = (random.author);
+
+            let qouteUI = document.getElementById('quote-display').innerText = quoteJson;
+            let authorUI = document.getElementById('author-name').innerText = authorJson
+        }else{
+            console.log('something went wrong')
+        }
+        }
+        
+        xml.send()
+        }
+        
+    </script>
+</body>
+</html>
